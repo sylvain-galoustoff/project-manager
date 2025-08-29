@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser } from "../Controllers/UserController";
+import { registerUser, userLogin } from "../Controllers/UserController";
 
 const router = Router();
 
@@ -8,5 +8,11 @@ const router = Router();
  * Enregistre un nouvel utilisateur
  */
 router.post("/register", registerUser);
+
+/**
+ * POST /users/login
+ * Connecter l'utilisateur
+ */
+router.post("/login", userLogin);
 
 export default router;

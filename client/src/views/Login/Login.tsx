@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     event.preventDefault();
 
     const response = await postData("http://localhost:3000/users/login", {
-      username,
+      name: username,
       password,
     });
 
@@ -28,12 +28,12 @@ const Login: React.FC = () => {
         header: "Erreur",
         message: `Utilisateur ou mot de passe incorrect.`,
       });
-    } else if (response.message === "Connexion réussie") {
+    } else if (response.message === "Utilisateur connecté") {
       setUser(response.data);
       login("fake-token", response.data);
       addToast({
         variant: "primary",
-        message: `Bienvenue ${response.data.username} !`,
+        message: `Bienvenue ${response.data.name} !`,
       });
     } else if (response.message === "Erreur lors de la connexion") {
       addToast({
