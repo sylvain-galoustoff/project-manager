@@ -61,21 +61,16 @@ export const userLogin = async (req: Request, res: Response<apiResponse>) => {
   try {
     const { name, password } = req.body;
 
-    // Vérifier les champs obligatoires
-    if (!name || !password) {
-      return res.status(400).json({
-        status: "error",
-        message: "Les champs name et password sont obligatoires",
-      });
-    }
-
     // Vérifier si l'utilisateur existe déjà
-    const findUser = await UserModel.findOne({ name });
+    const findUser = await UserModel.findOne({ name, password });
+    console.log(findUser);
+
     if (!findUser) {
-      return res.status(409).json({
+      const response: apiResponse = {
         status: "error",
-        message: "Nom d'utilisateur ou mot de passe incorrect",
-      });
+        message: "Nom ou mot de passe incorrect",
+      };
+      return res.status(401).json(response);
     } else {
       return res.status(201).json({
         status: "success",
