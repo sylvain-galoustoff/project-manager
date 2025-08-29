@@ -4,6 +4,8 @@ import Signin from "../views/Signin/Signin";
 import { useAuth } from "../context/AuthContext";
 import NotFound from "../views/NotFound/NotFound";
 import type { JSX } from "react";
+import Layout from "../views/Layout/Layout";
+import Dashboard from "../views/Dashboard/Dashboard";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { authToken, loading } = useAuth();
@@ -28,6 +30,26 @@ export const router = createBrowserRouter([
     path: "/signin",
     element: <Signin />,
     errorElement: <NotFound />,
+  },
+  {
+    path: "/home",
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
+    errorElement: <NotFound />,
+    children: [
+      {
+        path: "dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+        errorElement: <NotFound />,
+      },
+    ],
   },
   {
     path: "/",
