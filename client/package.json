@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@meloprojects/shared": "workspace:*",
+    "melogems": "workspace:*",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "@meloprojects/shared": "workspace:*"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

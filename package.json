@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"pnpm --filter @meloprojects/shared run watch\" \"pnpm --filter server run dev\" \"pnpm --filter client run dev\""
+    "dev": "concurrently \"pnpm --filter @meloprojects/shared run watch\" \"pnpm --filter server run dev\" \"pnpm --filter client run dev\" \"pnpm --filter melogems run storybook\""
   },
   "keywords": [],
   "author": "",
