@@ -24,29 +24,31 @@ function Signin() {
     event.preventDefault();
 
     if (password === confirm) {
-      const response = await postData("http://localhost:3000/users/signin", {
-        username,
+      const response = await postData("http://localhost:3000/users/register", {
+        name: username,
         password,
       });
 
-      if (response.message === "Nom d'utilisateur déjà utilisé") {
+      if (response.message === "Un utilisateur avec ce nom existe déjà") {
         addToast({
           variant: "danger",
           header: "Erreur",
           message: "L'utilisateur existe déjà.",
         });
-      } else if (response.message === "Utilisateur créé avec succès") {
+      } else if (response.message === "Utilisateur enregistré avec succès") {
         addToast({
           variant: "success",
           header: "Enregistrement terminé",
           message: `${username} a été ajouté.`,
         });
         navigate("/login");
-      } else if (response.message === "Erreur lors de la création de l'utilisateur") {
+      } else if (
+        response.message === "Erreur lors de l'enregistrement de l'utilisateur"
+      ) {
         addToast({
           variant: "danger",
           header: "Erreur",
-          message: "Erreur côté serveur",
+          message: "Erreur serveur",
         });
       }
     }

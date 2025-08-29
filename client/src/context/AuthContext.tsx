@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import type { UserEntity } from "../types/user.entity";
+import type { User } from "@meloprojects/shared";
 
 type AuthContextType = {
   authToken: string | null;
-  login: (token: string, user: UserEntity) => void;
+  login: (token: string, user: User) => void;
   logout: () => void;
-  user: UserEntity | undefined;
-  setUser: (user: UserEntity) => void;
+  user: User | undefined;
+  setUser: (user: User) => void;
   loading: boolean;
 };
 
@@ -28,7 +28,7 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
-  const [user, setUser] = useState<UserEntity | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (token: string, user: UserEntity) => {
+  const login = (token: string, user: User) => {
     setAuthToken(token);
     setUser(user);
 
