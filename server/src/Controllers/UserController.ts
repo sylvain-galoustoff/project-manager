@@ -57,7 +57,7 @@ export const registerUser = async (req: Request, res: Response<apiResponse>) => 
 /**
  * connecter l'utilisateur
  */
-export const login = async (req: Request, res: Response<apiResponse>) => {
+export const userLogin = async (req: Request, res: Response<apiResponse>) => {
   try {
     const { name, password } = req.body;
 
