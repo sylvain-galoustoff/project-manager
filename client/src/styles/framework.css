@@ -1,0 +1,40 @@
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+.help {
+  font-size: .8rem;
+}
+
+.page {
+  height: calc(100% - var(--headerHeight));
+  overflow: hidden;
+  padding: 16px var(--marge);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 700;
+  color: var(--text-black);
+}
+
+.button-group {
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}

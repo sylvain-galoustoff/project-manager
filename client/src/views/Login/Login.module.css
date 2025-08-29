@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 200px;
+}
+
+.form {
+  background-color: var(--white);
+  border-radius: var(--corner);
+  padding: 16px;
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link {
+  font-size: var(--font-size);
+  color: var(--grey);
+  text-decoration: none;
+}

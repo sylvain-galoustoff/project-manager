@@ -1,30 +1,32 @@
-import type { User, Project } from "@meloprojects/shared";
+import { Suspense } from "react";
+import { RouterProvider } from "react-router";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ToasterProvider } from "./context/ToasterContext";
+import Toaster from "./components/Toaster/Toaster";
+import { router } from "./router/Router";
 
-const demoUser: User = {
-  id: "1",
-  name: "Alice",
-  email: "alice@example.com",
-};
+function AppContent() {
+  const { loading } = useAuth();
 
-const demoProjects: Project[] = [
-  { id: "p1", name: "Meloprojects", ownerId: "1" },
-  { id: "p2", name: "Website Redesign", ownerId: "1" },
-  { id: "p3", name: "Mobile App", ownerId: "1" },
-];
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
+
+  return <RouterProvider router={router} />;
+}
 
 function App() {
   return (
-    <div style={{ padding: 20, fontFamily: "sans-serif" }}>
-      <h1>Welcome, {demoUser.name} 👋</h1>
-      <h2>Your Projects:</h2>
-      <ul>
-        {demoProjects.map((project) => (
-          <li key={project.id}>
-            <strong>{project.name}</strong> (Owner ID: {project.ownerId})
-          </li>
-        ))}
-      </ul>
-    </div>
+    <AuthProvider>
+      <ToasterProvider>
+        <div className="app">
+          <Suspense fallback={<div>Chargement de l'application...</div>}>
+            <AppContent />
+          </Suspense>
+          <Toaster />
+        </div>
+      </ToasterProvider>
+    </AuthProvider>
   );
 }
 

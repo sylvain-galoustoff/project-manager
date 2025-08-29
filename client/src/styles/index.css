@@ -1,0 +1,26 @@
+@import './reset.css';
+@import './vars.css';
+@import './framework.css';
+
+:root {
+  font-family: "Arial", sans-serif;
+  font-size: 18px;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.app,
+.wrapper {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+}

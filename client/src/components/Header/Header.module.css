@@ -1,0 +1,83 @@
+.header {
+  height: var(--headerHeight);
+  color: var(--white);
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px var(--marge);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 16px;
+  position: relative;
+}
+
+.arrowBack {
+  font-size: 2rem;
+  border-right: 2px solid var(--white);
+  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.arrowBack:hover svg {
+  transition: all .15s ease-out;
+}
+
+.arrowBack:hover svg {
+  transform: translateX(-5px);
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.appName {
+  font-weight: 900;
+}
+
+.pageName {
+  opacity: .8;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userMenu {
+  padding: 8px;
+  background-color: var(--white);
+  position: relative;
+  border-top-left-radius: var(--corner);
+  border-top-right-radius: var(--corner);
+  transition: all .15s ease-out;
+  cursor: pointer;
+}
+
+.userMenu.closed {
+  background-color: transparent;
+}
+
+.links {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(100%);
+  padding: 8px;
+  background-color: var(--white);
+  border-bottom-left-radius: var(--corner);
+  border-top-left-radius: var(--corner);
+  border-bottom-right-radius: var(--corner);
+}
