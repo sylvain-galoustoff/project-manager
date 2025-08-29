@@ -7,13 +7,13 @@ import { apiResponse } from "@meloprojects/shared";
  */
 export const registerUser = async (req: Request, res: Response<apiResponse>) => {
   try {
-    const { name, displayName, role, password } = req.body;
+    const { name, password } = req.body;
 
     // Vérifier les champs obligatoires
-    if (!name || !displayName || !password) {
+    if (!name || !password) {
       return res.status(400).json({
         status: "error",
-        message: "Les champs name, displayName et password sont obligatoires",
+        message: "Les champs name et password sont obligatoires",
       });
     }
 
@@ -29,12 +29,9 @@ export const registerUser = async (req: Request, res: Response<apiResponse>) => 
     // Créer l'utilisateur
     const newUser = new UserModel({
       name,
-      displayName,
-      role: role || "user",
-      password, // ⚠️ à remplacer plus tard par un hash (bcrypt)
+      role: "user",
+      password,
     });
-
-    // Sauvegarder en BDD
     await newUser.save();
 
     return res.status(201).json({
@@ -43,17 +40,17 @@ export const registerUser = async (req: Request, res: Response<apiResponse>) => 
       data: {
         _id: newUser._id,
         name: newUser.name,
-        displayName: newUser.displayName,
+        displayName: "",
         role: newUser.role,
         password: "hidden",
         createdAt: newUser.createdAt,
       },
     });
   } catch (error) {
-    console.error("Erreur lors de l'enregistrement d'un utilisateur :", error);
+    console.error("Erreur lors de l'enregistrement de l'utilisateur", error);
     return res.status(500).json({
       status: "error",
-      message: "Erreur interne du serveur",
+      message: "Erreur interne du serveur (UserController)",
     });
   }
 };
