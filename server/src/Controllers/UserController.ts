@@ -50,7 +50,44 @@ export const registerUser = async (req: Request, res: Response<apiResponse>) => 
     console.error("Erreur lors de l'enregistrement de l'utilisateur", error);
     return res.status(500).json({
       status: "error",
-      message: "Erreur interne du serveur (UserController)",
+      message: "Erreur interne du serveur (UserController/register)",
+    });
+  }
+};
+/**
+ * connecter l'utilisateur
+ */
+export const login = async (req: Request, res: Response<apiResponse>) => {
+  try {
+    const { name, password } = req.body;
+
+    // Vérifier les champs obligatoires
+    if (!name || !password) {
+      return res.status(400).json({
+        status: "error",
+        message: "Les champs name et password sont obligatoires",
+      });
+    }
+
+    // Vérifier si l'utilisateur existe déjà
+    const findUser = await UserModel.findOne({ name });
+    if (!findUser) {
+      return res.status(409).json({
+        status: "error",
+        message: "Nom d'utilisateur ou mot de passe incorrect",
+      });
+    } else {
+      return res.status(201).json({
+        status: "success",
+        message: "Utilisateur connecté",
+        data: findUser,
+      });
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement de l'utilisateur", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Erreur interne du serveur (UserController/login)",
     });
   }
 };
