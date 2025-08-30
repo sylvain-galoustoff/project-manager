@@ -1,6 +1,29 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models/user.model";
-import { apiResponse } from "@meloprojects/shared";
+import { apiResponse, User } from "@meloprojects/shared";
+
+/**
+ * Obtenir tous les utilisateurs
+ */
+export const getUsers = async (req: Request, res: Response<apiResponse>) => {
+  try {
+    const users: User[] = await UserModel.find().select("-password").lean();
+    const response: apiResponse = {
+      status: "success",
+      message: "Liste des utilisateurs récupérée avec succès",
+      data: users,
+    };
+    res.json(response);
+  } catch (err) {
+    console.error("Erreur lors de la récupération des utilisateurs :", err);
+    const response: apiResponse = {
+      status: "error",
+      message: "Erreur lors de la récupération des utilisateurs",
+      data: undefined,
+    };
+    res.status(500).json(response);
+  }
+};
 
 /**
  * Enregistre un nouvel utilisateur

@@ -7,7 +7,7 @@ import { fetchData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
 
 function AddProject() {
-  const [options, setOptions] = useState<string[] | undefined>(undefined);
+  const [options, setOptions] = useState<string[]>([]);
   const { addToast } = useToaster();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function AddProject() {
         </div>
         <div className={`form-group`}>
           <label htmlFor="projectName">Attribuer des utilisateurs à ce projet</label>
-          <Select options={["Pierre", "Paule", "Jacques"]} iconBefore={<IoPerson />} />
+          <Select options={options} iconBefore={<IoPerson />} />
         </div>
         <div className={`form-group`}>
           <label htmlFor="deadline">Date d'échéance</label>
