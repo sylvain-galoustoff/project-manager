@@ -7,6 +7,9 @@ import { fetchData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
 
 function AddProject() {
+  const [projectName, setProjectName] = useState<string>("");
+  const [users, setUsers] = useState<string[]>([]);
+  const [deadline, setDeadline] = useState<string>("");
   const [options, setOptions] = useState<string[]>([]);
   const { addToast } = useToaster();
 
@@ -29,6 +32,10 @@ function AddProject() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const addUser = (value: string) => {
+    setUsers((prev) => [...prev, value]);
+  };
+
   return (
     <div className={`page  ${styles.addProject}`}>
       <form className={styles.form}>
@@ -39,15 +46,16 @@ function AddProject() {
             id="projectName"
             iconBefore={<IoPerson />}
             placeholder="Quel truc cool allez vous faire ?"
+            onChange={(value) => setProjectName(value)}
           />
         </div>
         <div className={`form-group`}>
           <label htmlFor="projectName">Attribuer des utilisateurs à ce projet</label>
-          <Select options={options} iconBefore={<IoPerson />} />
+          <Select options={options} iconBefore={<IoPerson />} callback={addUser} />
         </div>
         <div className={`form-group`}>
-          <label htmlFor="deadline">Date d'échéance</label>
-          <DatePicker id={"deadline"} />
+          <label htmlFor="deadline">Date d'échéance (facultatif)</label>
+          <DatePicker id={"deadline"} callback={(value) => setDeadline(value)} />
         </div>
         <div className={`button-group`}>
           <Button
