@@ -6,6 +6,7 @@ import NotFound from "../views/NotFound/NotFound";
 import type { JSX } from "react";
 import Layout from "../views/Layout/Layout";
 import Dashboard from "../views/Dashboard/Dashboard";
+import AddProject from "../views/AddProject/AddProject";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { authToken, loading } = useAuth();
@@ -42,11 +43,12 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "dashboard",
-        element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        ),
+        element: <Dashboard />,
+        errorElement: <NotFound />,
+      },
+      {
+        path: "project/add",
+        element: <AddProject />,
         errorElement: <NotFound />,
       },
     ],
