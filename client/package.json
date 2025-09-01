@@ -12,6 +12,7 @@
   "dependencies": {
     "@meloprojects/shared": "workspace:*",
     "melogems": "workspace:*",
+    "motion": "^12.23.12",
     "npm": "^11.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
