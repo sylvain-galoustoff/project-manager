@@ -3,9 +3,11 @@ import styles from "./AddProject.module.css";
 import { IoPerson, IoCheckmark } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import type { Project, User } from "@meloprojects/shared";
-import { fetchData } from "../../helpers/apiCalls";
+import { fetchData, postData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
 import { useAuth } from "../../context/AuthContext";
+import { parse } from "date-fns";
+import { useNavigate } from "react-router";
 
 function AddProject() {
   const [projectName, setProjectName] = useState<string>("");
@@ -14,6 +16,7 @@ function AddProject() {
   const [options, setOptions] = useState<string[]>([]);
   const { addToast } = useToaster();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -38,16 +41,36 @@ function AddProject() {
     setUsers((prev) => [...prev, value]);
   };
 
-  const submitProject = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (projectName.length > 0 && user !== undefined) {
-      const postData: Project = {
+      const deadlineObj = parse(deadline, "dd/MM/yyyy", new Date());
+
+      const dataObj: Project = {
         name: projectName,
         ownerId: user?.name,
+        deadline: deadlineObj,
         users,
         createdAt: new Date(),
       };
-      console.log(postData);
+      console.log(dataObj);
+
+      const response = await postData("http://localhost:3000/project/register", dataObj);
+      if (response.status === "error") {
+        addToast({
+          variant: "danger",
+          header: "Erreur",
+          message: response.message,
+        });
+      } else if (response.status === "success") {
+        addToast({
+          variant: "success",
+          header: "Nouveau projet",
+          message: `Le projet ${projectName} a été créé.`,
+        });
+        navigate(`/home/project/${projectName}`);
+      }
+      console.log(response);
     }
   };
 
