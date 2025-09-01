@@ -1,6 +1,6 @@
 import { Button, Input, Select, DatePicker, Avatar } from "melogems";
 import styles from "./AddProject.module.css";
-import { IoPerson, IoCheckmark } from "react-icons/io5";
+import { IoPerson, IoCheckmark, IoTrash } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import type { Project, User } from "@meloprojects/shared";
 import { fetchData, postData } from "../../helpers/apiCalls";
@@ -74,7 +74,19 @@ function AddProject() {
     }
   };
 
-  const renderWorkers = users.map((user) => <Avatar key={user} name={user} />);
+  const removeWorker = (name: string) => {
+    console.log(name);
+    setUsers((prev) => prev.filter((user) => user !== name));
+  };
+
+  const renderWorkers = users.map((user) => (
+    <div className={styles.workersWrapper} onClick={() => removeWorker(user)}>
+      <Avatar key={user} name={user} />
+      <div className={styles.removeWorker}>
+        <IoTrash />
+      </div>
+    </div>
+  ));
 
   return (
     <form className={`page  ${styles.addProject}`} onSubmit={submitProject}>
@@ -97,9 +109,8 @@ function AddProject() {
           <label htmlFor="projectName">Attribuer des utilisateurs à ce projet</label>
           <Select options={options} iconBefore={<IoPerson />} callback={addUser} />
         </div>
-
-        <div className={`button-group`}></div>
       </div>
+
       <div className={styles.preview}>
         <div className={`form-group ${styles.previewGroup}`}>
           <p className={`label`}>Votre projet :</p>
