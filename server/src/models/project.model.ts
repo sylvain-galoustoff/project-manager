@@ -30,4 +30,4 @@ const projectSchema = new Schema<Project>(
   }
 );
 
-export const ProjectModel = model<Project>("User", projectSchema);
+export const ProjectModel = model<Project>("Project", projectSchema);

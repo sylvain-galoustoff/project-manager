@@ -2,7 +2,7 @@ import { Button, Input, Select, DatePicker, Avatar } from "melogems";
 import styles from "./AddProject.module.css";
 import { IoPerson, IoCheckmark } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import type { User } from "@meloprojects/shared";
+import type { Project, User } from "@meloprojects/shared";
 import { fetchData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
 import { useAuth } from "../../context/AuthContext";
@@ -38,9 +38,24 @@ function AddProject() {
     setUsers((prev) => [...prev, value]);
   };
 
+  const submitProject = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (projectName.length > 0 && user !== undefined) {
+      const postData: Project = {
+        name: projectName,
+        ownerId: user?.name,
+        users,
+        createdAt: new Date(),
+      };
+      console.log(postData);
+    }
+  };
+
+  const renderWorkers = users.map((user) => <Avatar key={user} name={user} />);
+
   return (
-    <div className={`page  ${styles.addProject}`}>
-      <form className={styles.form}>
+    <form className={`page  ${styles.addProject}`} onSubmit={submitProject}>
+      <div className={styles.form}>
         <div className={`form-group`}>
           <label htmlFor="projectName">Nom du projet</label>
           <Input
@@ -52,26 +67,19 @@ function AddProject() {
           />
         </div>
         <div className={`form-group`}>
-          <label htmlFor="projectName">Attribuer des utilisateurs à ce projet</label>
-          <Select options={options} iconBefore={<IoPerson />} callback={addUser} />
-        </div>
-        <div className={`form-group`}>
           <label htmlFor="deadline">Date d'échéance (facultatif)</label>
           <DatePicker id={"deadline"} callback={(value) => setDeadline(value)} />
         </div>
-        <div className={`button-group`}>
-          <Button
-            variant="secondary"
-            type="submit"
-            label="Valider"
-            iconBefore={<IoCheckmark />}
-          />
+        <div className={`form-group`}>
+          <label htmlFor="projectName">Attribuer des utilisateurs à ce projet</label>
+          <Select options={options} iconBefore={<IoPerson />} callback={addUser} />
         </div>
-      </form>
+
+        <div className={`button-group`}></div>
+      </div>
       <div className={styles.preview}>
         <div className={`form-group ${styles.previewGroup}`}>
           <p className={`label`}>Votre projet :</p>
-
           <div className={`card ${styles.previewCard}`}>
             <div className={styles.cardHeader}>
               <h2 className={styles.h2}>
@@ -82,21 +90,28 @@ function AddProject() {
               </p>
             </div>
             <div className={styles.cardBody}>
-              <h3 className={styles.h3}>Assignés au projet :</h3>
-              <div className={styles.avatars}>
-                {user !== undefined && (
-                  <div className={styles.owner}>
-                    <p className={`help`}>Superviseur :</p>
-                    <Avatar name={user.displayName ? user.displayName : user.name} />
-                  </div>
-                )}
-                {users.length > 0 && <Avatar name={"Bernard"} />}
-              </div>
+              {user !== undefined && (
+                <div className={styles.owner}>
+                  <p className={`help`}>Superviseur :</p>
+                  <Avatar name={user.displayName ? user.displayName : user.name} />
+                </div>
+              )}
+              {users.length > 0 ? (
+                <div className={styles.workers}>
+                  <p className={`help`}>Assigné.e.s au projet :</p>
+                  {renderWorkers}
+                </div>
+              ) : (
+                <p className={`help`}>Aucune autre personne n'est assignée au projet</p>
+              )}
+            </div>
+            <div className={styles.cardFooter}>
+              <Button type="submit" label="Valider" iconBefore={<IoCheckmark />} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

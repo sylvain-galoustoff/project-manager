@@ -20,10 +20,6 @@
   flex-direction: column;
 }
 
-.previewCard {
-  flex: 1;
-}
-
 .cardHeader {
   padding: 16px;
   border-bottom: 1px solid var(--borderOnWhite);
@@ -49,21 +45,27 @@
   gap: 16px;
 }
 
-.h3 {
-  color: var(--primary);
-  font-weight: 700;
-}
-
 .avatars {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.owner {
+.owner,
+.workers {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+}
+
+.owner {
   border-bottom: 1px solid var(--borderOnWhite);
   padding-bottom: 16px;
+}
+
+.cardFooter button {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 16px;
 }

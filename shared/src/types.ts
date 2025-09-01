@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface Project {
-  _id: string;
+  _id?: string;
   name: string;
   ownerId: string;
   users?: string[];
@@ -20,5 +20,5 @@ export interface Project {
 export interface apiResponse {
   status: "error" | "success";
   message: string;
-  data?: User | User[];
+  data?: User | User[] | Project | Project[];
 }
