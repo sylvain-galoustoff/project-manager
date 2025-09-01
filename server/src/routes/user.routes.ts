@@ -1,7 +1,13 @@
 import { Router } from "express";
-import { registerUser, userLogin } from "../Controllers/UserController";
+import { getUsers, registerUser, userLogin } from "../Controllers/UserController";
 
 const router = Router();
+
+/**
+ * POST /users
+ * Obtenir tous les utilisateurs
+ */
+router.get("/", getUsers);
 
 /**
  * POST /users/register

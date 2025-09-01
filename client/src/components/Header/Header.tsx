@@ -83,7 +83,10 @@ function Header({ arrowBack = true }: HeaderProps) {
           onClick={() => setShowUserMenu(!showUserMenu)}
         >
           {user !== undefined && (
-            <Avatar name={user.username} inverted={showUserMenu ? false : true} />
+            <Avatar
+              name={user.displayName ? user.displayName : user.name}
+              inverted={showUserMenu ? false : true}
+            />
           )}
           <AnimatePresence>
             {showUserMenu && (

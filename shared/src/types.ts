@@ -9,12 +9,16 @@ export interface User {
 }
 
 export interface Project {
-  id: string;
+  _id?: string;
   name: string;
   ownerId: string;
+  users?: string[];
+  deadline?: Date;
+  createdAt: Date;
+  __v?: number;
 }
 export interface apiResponse {
   status: "error" | "success";
   message: string;
-  data?: User;
+  data?: User | User[] | Project | Project[];
 }

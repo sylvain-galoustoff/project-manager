@@ -26,7 +26,8 @@ h3 {
   gap: 8px;
 }
 
-label {
+label,
+p.label {
   font-weight: 700;
   color: var(--text-black);
 }
@@ -37,4 +38,9 @@ label {
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: var(--corner);
 }

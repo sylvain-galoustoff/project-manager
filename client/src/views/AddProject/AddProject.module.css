@@ -1,0 +1,93 @@
+.addProject {
+  display: flex;
+  gap: 32px;
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.preview {
+  flex: 1;
+}
+
+.previewGroup {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  padding: 16px;
+  border-bottom: 1px solid var(--borderOnWhite);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+}
+
+.h2 {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.cardHeader .help {
+  opacity: 0;
+}
+
+.cardBody {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.avatars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.owner,
+.workers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.owner {
+  border-bottom: 1px solid var(--borderOnWhite);
+  padding-bottom: 16px;
+}
+
+.workersWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.removeWorker {
+  opacity: 0;
+  transition: all .15s ease-out;
+  transform: translateX(10px);
+}
+
+.removeWorker svg {
+  color: var(--danger);
+}
+
+.workersWrapper:hover .removeWorker {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cardFooter button {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 16px;
+}
