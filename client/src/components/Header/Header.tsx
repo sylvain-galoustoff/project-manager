@@ -14,7 +14,7 @@ interface HeaderProps {
 
 function Header({ arrowBack = true }: HeaderProps) {
   const [pageName, setPageName] = useState<string>("Page name");
-  const [showUserMenu, setShowUserMenu] = useState<boolean>(true);
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const [additionalMenu, setAdditionalMenu] = useState<JSX.Element | undefined>(
     undefined
   );

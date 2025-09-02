@@ -7,6 +7,7 @@ import type { JSX } from "react";
 import Layout from "../views/Layout/Layout";
 import Dashboard from "../views/Dashboard/Dashboard";
 import AddProject from "../views/AddProject/AddProject";
+import Profile from "../views/Profile/Profile";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { authToken, loading } = useAuth();
@@ -49,6 +50,11 @@ export const router = createBrowserRouter([
       {
         path: "project/add",
         element: <AddProject />,
+        errorElement: <NotFound />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
         errorElement: <NotFound />,
       },
     ],
