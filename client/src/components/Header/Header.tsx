@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from "react-router";
 import styles from "./Header.module.css";
-import { IoArrowBack, IoExit } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
 import { useEffect, useState, type JSX } from "react";
-import { Avatar, Button } from "melogems";
+import { Avatar } from "melogems";
 import { useAuth } from "../../context/AuthContext";
 import { AnimatePresence, motion } from "motion/react";
-import { useToaster } from "../../context/ToasterContext";
 import DashboardMenu from "./Menu/Dashboard/DashboardMenu";
+import UserMenu from "./Menu/Dashboard/UserMenu/UserMenu";
 
 interface HeaderProps {
   arrowBack?: boolean;
@@ -14,14 +14,13 @@ interface HeaderProps {
 
 function Header({ arrowBack = true }: HeaderProps) {
   const [pageName, setPageName] = useState<string>("Page name");
-  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(true);
   const [additionalMenu, setAdditionalMenu] = useState<JSX.Element | undefined>(
     undefined
   );
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
-  const { addToast } = useToaster();
+  const { user } = useAuth();
 
   useEffect(() => {
     switch (location.pathname) {
@@ -41,14 +40,6 @@ function Header({ arrowBack = true }: HeaderProps) {
         break;
     }
   }, [location.pathname]);
-
-  const disconnect = () => {
-    logout();
-    addToast({
-      variant: "primary",
-      message: "Vous êtes déconnecté.",
-    });
-  };
 
   return (
     <div className={styles.header}>
@@ -88,20 +79,7 @@ function Header({ arrowBack = true }: HeaderProps) {
               inverted={showUserMenu ? false : true}
             />
           )}
-          <AnimatePresence>
-            {showUserMenu && (
-              <motion.div
-                key="links"
-                initial={{ opacity: 0, y: "90%" }}
-                animate={{ opacity: 1, y: "100%" }}
-                exit={{ opacity: 0, y: "90%" }}
-                transition={{ duration: 0.15, ease: "easeOut" }}
-                className={styles.links}
-              >
-                <Button label="Déconnexion" iconAfter={<IoExit />} onClick={disconnect} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <AnimatePresence>{showUserMenu && <UserMenu />}</AnimatePresence>
         </div>
       </div>
     </div>
