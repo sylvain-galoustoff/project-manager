@@ -34,6 +34,11 @@ function Header({ arrowBack = true }: HeaderProps) {
         setAdditionalMenu(undefined);
         break;
 
+      case "/home/profile":
+        setPageName("Profile");
+        setAdditionalMenu(undefined);
+        break;
+
       default:
         setPageName("");
         setAdditionalMenu(undefined);
