@@ -27,16 +27,16 @@ type ToasterProviderProps = {
 export const ToasterProvider: React.FC<ToasterProviderProps> = ({ children }) => {
   const [toaster, setToaster] = useState<ToastEntity[]>([]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setToaster((prev) => {
-  //       if (prev.length === 0) return prev;
-  //       return prev.slice(1);
-  //     });
-  //   }, 5000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setToaster((prev) => {
+        if (prev.length === 0) return prev;
+        return prev.slice(1);
+      });
+    }, 5000);
 
-  //   return () => clearInterval(interval);
-  // }, []);
+    return () => clearInterval(interval);
+  }, []);
 
   const addToast = (toast: ToastEntity) => {
     setToaster((prev) => [...prev, toast]);
