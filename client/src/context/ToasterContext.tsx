@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { ToastEntity } from "../types/toast.entity";
 
@@ -26,6 +26,17 @@ type ToasterProviderProps = {
 
 export const ToasterProvider: React.FC<ToasterProviderProps> = ({ children }) => {
   const [toaster, setToaster] = useState<ToastEntity[]>([]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setToaster((prev) => {
+  //       if (prev.length === 0) return prev;
+  //       return prev.slice(1);
+  //     });
+  //   }, 5000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const addToast = (toast: ToastEntity) => {
     setToaster((prev) => [...prev, toast]);

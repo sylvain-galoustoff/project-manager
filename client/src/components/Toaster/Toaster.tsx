@@ -14,7 +14,9 @@ function Toaster() {
     />
   ));
 
-  return <div className={styles.toaster}>{toaster.length > 0 && renderToast}</div>;
+  if (toaster.length > 0) {
+    return <div className={styles.toaster}>{toaster.length > 0 && renderToast}</div>;
+  }
 }
 
 export default Toaster;
