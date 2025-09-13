@@ -10,7 +10,23 @@
   border-bottom-right-radius: var(--corner);
   display: flex;
   flex-direction: column;
+}
+
+.adminMenu,
+.userMenu {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+}
+
+.adminMenu {
+  border-bottom: 1px solid var(--borderOnWhite);
+  padding-bottom: 16px;
+}
+
+.userMenu {
+  padding-top: 16px;
+
 }
 
 .link,
@@ -22,6 +38,7 @@ a.link {
   cursor: pointer;
   transition: all .15s ease-out;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .link:hover,

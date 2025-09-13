@@ -1,12 +1,12 @@
 import { motion } from "motion/react";
 import styles from "./UserMenu.module.css";
-import { IoExit, IoPerson } from "react-icons/io5";
+import { IoExit, IoPerson, IoPersonAdd } from "react-icons/io5";
 import { useAuth } from "../../../../../context/AuthContext";
 import { useToaster } from "../../../../../context/ToasterContext";
 import { Link } from "react-router";
 
 function UserMenu() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const { addToast } = useToaster();
 
   const disconnect = () => {
@@ -26,14 +26,25 @@ function UserMenu() {
       transition={{ duration: 0.15, ease: "easeOut" }}
       className={styles.links}
     >
-      <span className={styles.link} onClick={disconnect}>
-        <IoExit />
-        Déconnexion
-      </span>
-      <Link to="/home/profile" className={styles.link}>
-        <IoPerson />
-        Profile
-      </Link>
+      {user !== undefined && user.role === "admin" && (
+        <div className={styles.adminMenu}>
+          <Link to="/home/create-user" className={styles.link}>
+            <IoPersonAdd />
+            Ajouter un utilisateur
+          </Link>
+        </div>
+      )}
+
+      <div className={styles.userMenu}>
+        <span className={styles.link} onClick={disconnect}>
+          <IoExit />
+          Déconnexion
+        </span>
+        <Link to="/home/profile" className={styles.link}>
+          <IoPerson />
+          Profile
+        </Link>
+      </div>
     </motion.div>
   );
 }

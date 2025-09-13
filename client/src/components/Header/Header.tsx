@@ -39,6 +39,11 @@ function Header({ arrowBack = true }: HeaderProps) {
         setAdditionalMenu(undefined);
         break;
 
+      case "/home/create-user":
+        setPageName("Ajouter un utilisateur");
+        setAdditionalMenu(undefined);
+        break;
+
       default:
         setPageName("");
         setAdditionalMenu(undefined);
