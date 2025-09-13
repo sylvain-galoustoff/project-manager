@@ -1,6 +1,6 @@
 import { Button, Input, Select, DatePicker, Avatar } from "melogems";
 import styles from "./AddProject.module.css";
-import { IoPerson, IoCheckmark, IoTrash } from "react-icons/io5";
+import { IoPerson, IoCheckmark, IoTrash, IoBulb } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import type { Project, User } from "@meloprojects/shared";
 import { fetchData, postData } from "../../helpers/apiCalls";
@@ -20,7 +20,7 @@ function AddProject() {
 
   useEffect(() => {
     const getUsers = async () => {
-      const response = await fetchData("http://localhost:3000/users");
+      const response = await fetchData("/users");
       if (response.message === "Erreur lors de la récupération des utilisateurs") {
         addToast({
           variant: "danger",
@@ -55,7 +55,7 @@ function AddProject() {
       };
       console.log(dataObj);
 
-      const response = await postData("http://localhost:3000/project/register", dataObj);
+      const response = await postData("/project/register", dataObj);
       if (response.status === "error") {
         addToast({
           variant: "danger",
@@ -80,8 +80,8 @@ function AddProject() {
   };
 
   const renderWorkers = users.map((user) => (
-    <div className={styles.workersWrapper} onClick={() => removeWorker(user)}>
-      <Avatar key={user} name={user} />
+    <div key={user} className={styles.workersWrapper} onClick={() => removeWorker(user)}>
+      <Avatar name={user} />
       <div className={styles.removeWorker}>
         <IoTrash />
       </div>
@@ -96,7 +96,7 @@ function AddProject() {
           <Input
             type={"text"}
             id="projectName"
-            iconBefore={<IoPerson />}
+            iconBefore={<IoBulb />}
             placeholder="Quel truc cool allez vous faire ?"
             onChange={(value) => setProjectName(value)}
           />

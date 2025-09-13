@@ -39,6 +39,8 @@ function Header({ arrowBack = true }: HeaderProps) {
         setAdditionalMenu(undefined);
         break;
     }
+
+    setShowUserMenu(false);
   }, [location.pathname]);
 
   return (
