@@ -2,12 +2,46 @@ import { Button, Input } from "melogems";
 import styles from "./Profile.module.css";
 import { useState } from "react";
 import { IoCheckmark } from "react-icons/io5";
+import { postData } from "../../helpers/apiCalls";
+import { useToaster } from "../../context/ToasterContext";
+import { useAuth } from "../../context/AuthContext";
 
-function AddProject() {
+function Profile() {
   const [displayName, setDisplayName] = useState<string>("");
+  const { addToast } = useToaster();
+  const { user, setUser } = useAuth();
 
-  const submitDisplayName = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitDisplayName = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (displayName.length < 3) {
+      addToast({
+        variant: "danger",
+        header: "Vérifiez le formulaire",
+        message: "Votre nom affiché doit comporter au moins 3 caractères.",
+      });
+    } else {
+      if (user === undefined) return;
+
+      try {
+        const response = await postData("/users/update", {
+          name: user.name,
+          updates: { displayName },
+        });
+        console.log(response);
+
+        if (response.status === "success") {
+          setUser(response.data);
+        }
+      } catch (error) {
+        console.error(`[Profile] failed to update user profile`, error);
+        addToast({
+          variant: "danger",
+          header: "Erreur",
+          message: "Erreur serveur",
+        });
+      }
+    }
   };
 
   return (
@@ -33,4 +67,4 @@ function AddProject() {
   );
 }
 
-export default AddProject;
+export default Profile;

@@ -116,12 +116,13 @@ export const userLogin = async (req: Request, res: Response<apiResponse>) => {
  */
 export const updateUser = async (req: Request, res: Response<apiResponse>) => {
   try {
-    const { userId, updates } = req.body;
+    const { name, updates } = req.body;
 
-    if (!userId || !updates || typeof updates !== "object") {
+    if (!name || !updates || typeof updates !== "object") {
       return res.status(400).json({
         status: "error",
-        message: "Les champs userId et updates sont obligatoires",
+        message: "Les champs name et updates sont obligatoires",
+        data: req.body,
       });
     }
 
@@ -141,8 +142,9 @@ export const updateUser = async (req: Request, res: Response<apiResponse>) => {
       });
     }
 
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      userId,
+    // Mise à jour par name
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { name }, // recherche par name unique
       { $set: filteredUpdates },
       { new: true, runValidators: true, select: "-password" }
     ).lean();
