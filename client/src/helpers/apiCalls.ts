@@ -1,6 +1,10 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const postData = async (endpoint: string, postData: unknown) => {
+  console.log(`post to ${API_URL}${endpoint} : `, postData);
+
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(`${API_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +27,7 @@ export const postData = async (endpoint: string, postData: unknown) => {
 
 export const fetchData = async (endpoint: string) => {
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(`${API_URL}${endpoint}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

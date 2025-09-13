@@ -20,4 +20,12 @@ app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/project", projectsRouter);
 
+app.use((_, res) => {
+  res.status(404).json({
+    status: "error",
+    message: "Endpoint inconnu",
+    data: null,
+  });
+});
+
 export default app;

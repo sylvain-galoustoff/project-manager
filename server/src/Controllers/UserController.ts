@@ -77,6 +77,7 @@ export const registerUser = async (req: Request, res: Response<apiResponse>) => 
     });
   }
 };
+
 /**
  * connecter l'utilisateur
  */
@@ -106,6 +107,65 @@ export const userLogin = async (req: Request, res: Response<apiResponse>) => {
     return res.status(500).json({
       status: "error",
       message: "Erreur interne du serveur (UserController/login)",
+    });
+  }
+};
+
+/**
+ * Met à jour plusieurs champs d'un utilisateur
+ */
+export const updateUser = async (req: Request, res: Response<apiResponse>) => {
+  try {
+    const { name, updates } = req.body;
+
+    if (!name || !updates || typeof updates !== "object") {
+      return res.status(400).json({
+        status: "error",
+        message: "Les champs name et updates sont obligatoires",
+        data: req.body,
+      });
+    }
+
+    const allowedKeys = ["name", "displayName", "role", "password"];
+    const filteredUpdates: Record<string, any> = {};
+
+    Object.entries(updates).forEach(([key, value]) => {
+      if (allowedKeys.includes(key)) {
+        filteredUpdates[key] = value;
+      }
+    });
+
+    if (Object.keys(filteredUpdates).length === 0) {
+      return res.status(400).json({
+        status: "error",
+        message: "Aucune clé valide à mettre à jour",
+      });
+    }
+
+    // Mise à jour par name
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { name }, // recherche par name unique
+      { $set: filteredUpdates },
+      { new: true, runValidators: true, select: "-password" }
+    ).lean();
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        status: "error",
+        message: "Utilisateur non trouvé",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      message: "Utilisateur mis à jour avec succès",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de l'utilisateur :", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Erreur interne du serveur (UserController/updateUser)",
     });
   }
 };

@@ -1,0 +1,30 @@
+.links {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 32px 16px;
+  transform: translateY(100%);
+  background-color: var(--white);
+  border-bottom-left-radius: var(--corner);
+  border-top-left-radius: var(--corner);
+  border-bottom-right-radius: var(--corner);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link,
+a.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-black);
+  cursor: pointer;
+  transition: all .15s ease-out;
+  text-decoration: none;
+}
+
+.link:hover,
+a.link:hover {
+  color: var(--secondary);
+}

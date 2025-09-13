@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await postData("http://localhost:3000/users/login", {
+    const response = await postData("/users/login", {
       name: username,
       password,
     });

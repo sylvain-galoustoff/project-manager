@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { getUsers, registerUser, userLogin } from "../Controllers/UserController";
+import {
+  getUsers,
+  registerUser,
+  updateUser,
+  userLogin,
+} from "../Controllers/UserController";
 
 const router = Router();
 
@@ -20,5 +25,11 @@ router.post("/register", registerUser);
  * Connecter l'utilisateur
  */
 router.post("/login", userLogin);
+
+/**
+ * POST /users/update
+ * Modifier l'utilisateur
+ */
+router.post("/update", updateUser);
 
 export default router;
