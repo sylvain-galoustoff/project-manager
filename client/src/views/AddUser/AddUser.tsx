@@ -1,30 +1,21 @@
-import { Button, Input } from "melogems";
-import styles from "./Signin.module.css";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router";
-import { useToaster } from "../../context/ToasterContext";
+import { Input, Button } from "melogems";
+import styles from "./AddUser.module.css";
+import { useState } from "react";
 import { postData } from "../../helpers/apiCalls";
+import { useToaster } from "../../context/ToasterContext";
+import { IoCheckmark } from "react-icons/io5";
 
-function Signin() {
+function AddUser() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
-  const { authToken } = useAuth();
   const { addToast } = useToaster();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (authToken) {
-      navigate("/home");
-    }
-  }, [authToken, navigate]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password === confirm) {
-      const response = await postData("http://localhost:3000/users/register", {
+      const response = await postData("/users/register", {
         name: username,
         password,
       });
@@ -36,12 +27,14 @@ function Signin() {
           message: "L'utilisateur existe déjà.",
         });
       } else if (response.message === "Utilisateur enregistré avec succès") {
+        setConfirm("");
+        setPassword("");
+        setUsername("");
         addToast({
           variant: "success",
           header: "Enregistrement terminé",
           message: `${username} a été ajouté.`,
         });
-        navigate("/login");
       } else if (
         response.message === "Erreur lors de l'enregistrement de l'utilisateur"
       ) {
@@ -55,7 +48,7 @@ function Signin() {
   };
 
   return (
-    <div className={`wrapper ${styles.wrapper}`} id="login">
+    <div className={`page ${styles.addUser}`}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={`form-group`}>
           <label htmlFor="identifiant">Prénom</label>
@@ -85,6 +78,7 @@ function Signin() {
           <Button
             type="submit"
             label={"Enregistrer"}
+            iconBefore={<IoCheckmark />}
             variant={password.length > 3 && password === confirm ? "primary" : "disabled"}
           />
         </div>
@@ -93,4 +87,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default AddUser;

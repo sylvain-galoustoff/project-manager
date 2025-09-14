@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Button, Input } from "melogems";
 import styles from "./Login.module.css";
 import { IoPerson, IoShield } from "react-icons/io5";
@@ -74,9 +74,6 @@ const Login: React.FC = () => {
         <div className={`form-group button-group`}>
           <Button type="submit" label={"Connexion"} />
         </div>
-        <Link to={`/signin`} className={styles.link}>
-          Créer un compte
-        </Link>
       </form>
     </div>
   );

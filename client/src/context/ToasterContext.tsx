@@ -33,7 +33,7 @@ export const ToasterProvider: React.FC<ToasterProviderProps> = ({ children }) =>
         if (prev.length === 0) return prev;
         return prev.slice(1);
       });
-    }, 5000);
+    }, 100000);
 
     return () => clearInterval(interval);
   }, []);
