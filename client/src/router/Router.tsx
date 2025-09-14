@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import Login from "../views/Login/Login";
-import Signin from "../views/Signin/Signin";
 import { useAuth } from "../context/AuthContext";
 import NotFound from "../views/NotFound/NotFound";
 import type { JSX } from "react";
@@ -27,11 +26,6 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
     errorElement: <NotFound />,
   },
   {

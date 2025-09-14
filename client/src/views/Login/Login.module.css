@@ -15,9 +15,3 @@
   flex-direction: column;
   gap: 16px;
 }
-
-.link {
-  font-size: var(--font-size);
-  color: var(--grey);
-  text-decoration: none;
-}

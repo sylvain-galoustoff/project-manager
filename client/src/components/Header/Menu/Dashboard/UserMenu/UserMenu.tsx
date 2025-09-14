@@ -36,14 +36,14 @@ function UserMenu() {
       )}
 
       <div className={styles.userMenu}>
-        <span className={styles.link} onClick={disconnect}>
-          <IoExit />
-          Déconnexion
-        </span>
         <Link to="/home/profile" className={styles.link}>
           <IoPerson />
           Profile
         </Link>
+        <span className={styles.link} onClick={disconnect}>
+          <IoExit />
+          Déconnexion
+        </span>
       </div>
     </motion.div>
   );
