@@ -7,7 +7,7 @@ import Layout from "../views/Layout/Layout";
 import Dashboard from "../views/Dashboard/Dashboard";
 import AddProject from "../views/AddProject/AddProject";
 import Profile from "../views/Profile/Profile";
-import AddUser from "../views/AddUser/AddUser";
+import ManageUsers from "../views/ManageUsers/ManageUsers";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { authToken, loading } = useAuth();
@@ -53,8 +53,8 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "create-user",
-        element: <AddUser />,
+        path: "manage-users",
+        element: <ManageUsers />,
         errorElement: <NotFound />,
       },
     ],

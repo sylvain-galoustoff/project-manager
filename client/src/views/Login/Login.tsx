@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { Button, Input } from "melogems";
 import styles from "./Login.module.css";
-import { IoPerson, IoShield } from "react-icons/io5";
+import { IoPerson, IoShield, IoLogIn } from "react-icons/io5";
 import { useToaster } from "../../context/ToasterContext";
 import { postData } from "../../helpers/apiCalls";
 
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
           />
         </div>
         <div className={`form-group button-group`}>
-          <Button type="submit" label={"Connexion"} />
+          <Button type="submit" label={"Connexion"} iconAfter={<IoLogIn />} />
         </div>
       </form>
     </div>

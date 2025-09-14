@@ -1,11 +1,11 @@
 import { Input, Button } from "melogems";
-import styles from "./AddUser.module.css";
+import styles from "./ManageUsers.module.css";
 import { useState } from "react";
 import { postData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
 import { IoCheckmark } from "react-icons/io5";
 
-function AddUser() {
+function ManageUsers() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
@@ -87,4 +87,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default ManageUsers;

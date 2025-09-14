@@ -28,9 +28,9 @@ function UserMenu() {
     >
       {user !== undefined && user.role === "admin" && (
         <div className={styles.adminMenu}>
-          <Link to="/home/create-user" className={styles.link}>
+          <Link to="/home/manage-users" className={styles.link}>
             <IoPersonAdd />
-            Ajouter un utilisateur
+            Utilisateurs
           </Link>
         </div>
       )}
