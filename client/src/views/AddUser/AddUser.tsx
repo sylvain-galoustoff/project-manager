@@ -3,14 +3,13 @@ import styles from "./AddUser.module.css";
 import { useState } from "react";
 import { postData } from "../../helpers/apiCalls";
 import { useToaster } from "../../context/ToasterContext";
-import { useNavigate } from "react-router";
+import { IoCheckmark } from "react-icons/io5";
 
 function AddUser() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
   const { addToast } = useToaster();
-  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,12 +27,14 @@ function AddUser() {
           message: "L'utilisateur existe déjà.",
         });
       } else if (response.message === "Utilisateur enregistré avec succès") {
+        setConfirm("");
+        setPassword("");
+        setUsername("");
         addToast({
           variant: "success",
           header: "Enregistrement terminé",
           message: `${username} a été ajouté.`,
         });
-        navigate("/login");
       } else if (
         response.message === "Erreur lors de l'enregistrement de l'utilisateur"
       ) {
@@ -77,6 +78,7 @@ function AddUser() {
           <Button
             type="submit"
             label={"Enregistrer"}
+            iconBefore={<IoCheckmark />}
             variant={password.length > 3 && password === confirm ? "primary" : "disabled"}
           />
         </div>
